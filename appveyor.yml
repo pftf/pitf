@@ -16,6 +16,10 @@ build_script:
   - sh: export CROSS_COMPILE=/usr/bin/aarch64-linux-gnu-
   - sh: make PLAT=rpi3 PRELOADED_BL33_BASE=0x30000 RPI3_PRELOADED_DTB_BASE=0x10000 SUPPORT_VFP=1 RPI3_USE_UEFI_MAP=1 fip all
 
+after_build:
+  - sh: sha256sum build/rpi3/release/bl1.bin
+  - sh: sha256sum build/rpi3/release/fip.bin
+
 artifacts:
   - path: arm-trusted-firmware-$(ATF_VERSION)/build/rpi3/release/bl1.bin
     name: BL1 image
