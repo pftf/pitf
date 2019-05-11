@@ -1,7 +1,7 @@
 image: Ubuntu1804
 environment:
   global:
-    ATF-VERSION: 2.1
+    ATF_VERSION: 2.1
 install:
   - sh: sudo apt-get update -qq
   - sh: sudo -E apt-get install -y gcc-aarch64-linux-gnu
