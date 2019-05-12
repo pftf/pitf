@@ -1,3 +1,6 @@
+# Copyright (c) 2019, Pete Batard <pete@akeo.ie>
+# SPDX-License-Identifier: BSD-3-Clause
+
 image: Ubuntu1804
 
 environment:
@@ -27,3 +30,16 @@ artifacts:
   - path: arm-trusted-firmware-$(ATF_VERSION)/build/rpi3/release/fip.bin
     name: FIP image
     type: file
+
+deploy:
+  release: v$(ATF_VERSION)
+  description: Raspberry Pi 3 Arm Trusted Firmware v$(ATF_VERSION)
+  provider: GitHub
+  auth_token:
+    secure: w5YuQOim+G+U7FxxrL0BH6t0trCWKCs9DMZlF4xqF2XGC6SymzwaJrPWrKeeJHPK
+  artifact: /.*\.bin/
+  draft: false
+  prerelease: false
+  on:
+    branch: master
+    appveyor_repo_tag: true
