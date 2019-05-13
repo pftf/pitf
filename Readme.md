@@ -1,6 +1,9 @@
 Raspberry Pi3 - Arm Trusted Firmware binaries
 =============================================
 
+[![Build status](https://img.shields.io/appveyor/ci/pbatard/pitf.svg?style=flat-square)](https://ci.appveyor.com/project/pbatard/pitf)
+[![Github stats](https://img.shields.io/github/downloads/pbatard/pitf/total.svg?style=flat-square)](https://github.com/pbatard/pitf/releases)
+
 # Summary
 
 This repository is meant to host builds of the Arm Trusted Firmware for use with

@@ -3,6 +3,11 @@
 
 image: Ubuntu1804
 
+skip_commits:
+  files:
+    - '**/*.md'
+    - '**/*.txt'
+
 environment:
   ATF_VERSION: 2.1
 
