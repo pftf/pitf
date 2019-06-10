@@ -35,7 +35,8 @@ and confirming that:
   published on this repository.
 
 Alternatively, you should also be able to clone this repository and produce your
-own AppVeyor builds, to confirm that the binaries are identical.
+own AppVeyor builds, to confirm that the payloads are identical (only the build
+date that is inserted in the binary should change).
 
 # License
 
