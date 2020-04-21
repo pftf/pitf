@@ -28,7 +28,7 @@ and confirming that:
   commit from this repo (ensures that the built wasn't produced from a "hidden"
   malicious commit that would then have been deleted).
 - The ATF source that was downloaded for the build is the official one that can
-  be found at https://github.com/ARM-software/arm-trusted-firmware/archive/
+  be found at https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/
 - No alterations have been performed to the binary blobs after the build.
 - The SHA-256 sums of the binary blobs, which are explicitly displayed as part
   of the build process, do match the SHA-256 sums of the binaries that are
@@ -40,4 +40,4 @@ date that is inserted in the binary should change).
 
 # License
 
-[BSD-3-Clause](https://github.com/ARM-software/arm-trusted-firmware/blob/master/license.rst).
+[BSD-3-Clause](https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/tree/docs/license.rst).
