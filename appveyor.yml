@@ -1,4 +1,4 @@
-# Copyright (c) 2019, Pete Batard <pete@akeo.ie>
+# Copyright (c) 2019-2020, Pete Batard <pete@akeo.ie>
 # SPDX-License-Identifier: BSD-3-Clause
 
 image: Ubuntu1804
@@ -9,7 +9,7 @@ skip_commits:
     - '**/*.txt'
 
 environment:
-  ATF_VERSION: 2.2
+  ATF_VERSION: 2.3
 
 install:
   - sh: sudo apt-get update -qq
@@ -22,8 +22,8 @@ before_build:
 build_script:
   - sh: cd trusted-firmware-a-$ATF_VERSION
   - sh: export CROSS_COMPILE=/usr/bin/aarch64-linux-gnu-
-  - sh: make PLAT=rpi3 RPI3_PRELOADED_DTB_BASE=0x10000 PRELOADED_BL33_BASE=0x30000 SUPPORT_VFP=1 RPI3_USE_UEFI_MAP=1 fip all
-  - sh: make PLAT=rpi4 RPI3_PRELOADED_DTB_BASE=0x20000 PRELOADED_BL33_BASE=0x30000 SUPPORT_VFP=1 DEBUG=0 all
+  - sh: make PLAT=rpi3 RPI3_PRELOADED_DTB_BASE=0x10000 PRELOADED_BL33_BASE=0x30000 SUPPORT_VFP=1 RPI3_USE_UEFI_MAP=1 DEBUG=0 fip all
+  - sh: make PLAT=rpi4 RPI3_PRELOADED_DTB_BASE=0x1F0000 PRELOADED_BL33_BASE=0x20000 SUPPORT_VFP=1 DEBUG=0 all
 
 after_build:
   - sh: sha256sum build/rpi3/release/bl1.bin

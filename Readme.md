@@ -7,7 +7,7 @@ Raspberry Pi - Arm Trusted Firmware binaries
 # Summary
 
 This repository is meant to host builds of the Arm Trusted Firmware for use with
-the [EDK2 Raspberry Pi UEFI firmware](https://github.com/tianocore/edk2-platforms/tree/master/Platform/RaspberryPi/RPi3).
+the [EDK2 Raspberry Pi UEFI firmwares](https://github.com/tianocore/edk2-platforms/tree/master/Platform/RaspberryPi).
 
 Because of the sensitive nature of these firmware blobs, this process is
 accomplished in a fully transparent manner, through AppVeyor, and in a way that
@@ -16,7 +16,7 @@ altered from the ones one would build locally using the official ATF source.
 
 # Current version
 
-The version of ATF being built is 2.2, which was released on 2019.10.22.
+The version of ATF being built is 2.3, which was released on 2020.04.20.
 
 # Binary validation
 
