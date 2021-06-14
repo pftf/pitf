@@ -1,0 +1,78 @@
+# Copyright (c) 2021, Pete Batard <pete@akeo.ie>
+# SPDX-License-Identifier: BSD-3-Clause
+
+name: TF-A - Raspberry Pi build
+
+on:  
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set version
+      id: set_version
+      run: echo "::set-output name=version::${GITHUB_REF/refs\/tags\//}"
+    - name: Set up Linux environment
+      run: sudo apt install gcc-aarch64-linux-gnu
+    - name: Download and extract TF-A release
+      run: |
+        curl -L https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-${{steps.set_version.outputs.version}}.tar.gz -o trusted-firmware-a-${{steps.set_version.outputs.version}}.tar.gz
+        tar -xzf trusted-firmware-a-${{steps.set_version.outputs.version}}.tar.gz
+    - name: Build TF-A
+      run: |
+        cd trusted-firmware-a-${{steps.set_version.outputs.version}}
+        export CROSS_COMPILE=/usr/bin/aarch64-linux-gnu-
+        make PLAT=rpi3 RPI3_PRELOADED_DTB_BASE=0x10000 PRELOADED_BL33_BASE=0x30000 SUPPORT_VFP=1 RPI3_USE_UEFI_MAP=1 DEBUG=0 fip all
+        make PLAT=rpi4 RPI3_PRELOADED_DTB_BASE=0x1F0000 PRELOADED_BL33_BASE=0x20000 SUPPORT_VFP=1 DEBUG=0 all
+    - name: Upload TF-A artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: TF-A ${{steps.set_version.outputs.version}} Artifacts
+        path: |
+          trusted-firmware-a-${{steps.set_version.outputs.version}}/build/rpi3/release/bl1.bin
+          trusted-firmware-a-${{steps.set_version.outputs.version}}/build/rpi3/release/fip.bin
+          trusted-firmware-a-${{steps.set_version.outputs.version}}build/rpi4/release/bl31.bin
+    - name: Display SHA-256
+      run: sha256sum trusted-firmware-a-${{steps.set_version.outputs.version}}/build/rpi3/release/bl1.bin trusted-firmware-a-${{steps.set_version.outputs.version}}/build/rpi3/release/fip.bin trusted-firmware-a-${{steps.set_version.outputs.version}}/build/rpi4/release/bl31.bin
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        draft: false
+        prerelease: false
+        release_name: ${{steps.set_version.outputs.version}}
+        body: Raspberry Pi Arm Trusted Firmware ${{steps.set_version.outputs.version}}
+        tag_name: ${{steps.set_version.outputs.version}}
+    - name: Upload RPi3 bl1.bin
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        upload_url: ${{steps.create_release.outputs.upload_url}}
+        asset_path: trusted-firmware-a-${{steps.set_version.outputs.version}}/build/rpi3/release/bl1.bin
+        asset_name: bl1.bin
+        asset_content_type: application/octet-stream
+    - name: Upload RPi3 fip.bin
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        upload_url: ${{steps.create_release.outputs.upload_url}}
+        asset_path: trusted-firmware-a-${{steps.set_version.outputs.version}}/build/rpi3/release/fip.bin
+        asset_name: fip.bin
+        asset_content_type: application/octet-stream
+    - name: Upload RPi4 bl31.bin
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        upload_url: ${{steps.create_release.outputs.upload_url}}
+        asset_path: trusted-firmware-a-${{steps.set_version.outputs.version}}/build/rpi4/release/bl31.bin
+        asset_name: bl31.bin
+        asset_content_type: application/octet-stream
