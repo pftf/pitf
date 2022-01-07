@@ -17,7 +17,7 @@ altered from the ones one would build locally using the official TF-A source.
 
 # Current version
 
-The version of TF-A being built is 2.5, which was released on 2021.05.17.
+The version of TF-A being built is 2.6, which was released on 2021.11.23.
 
 # Binary validation
 
