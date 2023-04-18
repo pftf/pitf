@@ -1,7 +1,7 @@
 Raspberry Pi - Arm Trusted Firmware binaries
 ============================================
 
-[![Build status](https://img.shields.io/github/workflow/status/pftf/pitf/TF-A%20-%20Raspberry%20Pi%20build.svg?style=flat-square)](https://github.com/pftf/pitf/actions)
+[![Build status](https://img.shields.io/github/actions/workflow/status/pftf/pitf/build.yml?style=flat-square)](https://github.com/pftf/pitf/actions)
 [![Github stats](https://img.shields.io/github/downloads/pbatard/pitf/total.svg?style=flat-square)](https://github.com/pbatard/pitf/releases)
 [![Release](https://img.shields.io/github/release-pre/pftf/pitf?style=flat-square)](https://github.com/pftf/pitf/releases)
 
@@ -17,7 +17,7 @@ altered from the ones one would build locally using the official TF-A source.
 
 # Current version
 
-The version of TF-A being built is 2.6, which was released on 2021.11.23.
+The version of TF-A being built is 2.8, which was released on 2022-11-21.
 
 # Binary validation
 
