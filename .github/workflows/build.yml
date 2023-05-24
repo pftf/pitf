@@ -19,7 +19,9 @@ jobs:
       id: set_version
       run: echo "version=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
     - name: Set up Linux environment
-      run: sudo apt install gcc-aarch64-linux-gnu
+      run: |
+        sudo apt-get update
+        sudo apt-get install gcc-aarch64-linux-gnu
     - name: Download and extract TF-A release
       run: |
         curl -L https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-${{steps.set_version.outputs.version}}.tar.gz -o trusted-firmware-a-${{steps.set_version.outputs.version}}.tar.gz
